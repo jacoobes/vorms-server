@@ -1,20 +1,36 @@
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
+import java.net.DatagramPacket
 import java.net.DatagramSocket
+import kotlin.concurrent.thread
 import kotlin.coroutines.CoroutineContext
 
 class UdpServer(
-    private val port: Int = 8080,
-) : CoroutineScope, Runnable {
+    port: Int = 8080,
+    private val publisher: Listener,
+) : CoroutineScope, Subscriber<String>, java.lang.Runnable {
     override val coroutineContext: CoroutineContext = Job() + Dispatchers.IO
-    val datagramSocket = DatagramSocket(port)
-    var running = true
+    private val datagramSocket = DatagramSocket(port)
+    private var running = true
 
+    override fun send(data: String) {
+        launch {
+
+        }
+    }
+
+    override fun recieve(packet: DatagramPacket) {
+        datagramSocket.receive(packet)
+        println(String(packet.data, 0, packet.length))
+    }
 
     override fun run() {
-        while (running) {
-
+        val buffer = ByteArray(2048)
+        thread {
+            while(running) {
+                val packet = DatagramPacket(buffer,buffer.size)
+                recieve(packet)
+            }
         }
     }
 }
