@@ -4,11 +4,11 @@ import com.github.ajalt.clikt.parameters.options.prompt
 import java.net.Inet4Address
 
 class VormsAuth : CliktCommand() {
-    val userName: String by option(help="Enter Username for vorms")
+    val userName: String by option(help = "Enter Username for vorms")
         .prompt("Username")
     val password: String by option(help = "Enter password for vorms")
         .prompt(hideInput = true)
-    val hostname: String by option(help = "the host of your server")
+    val hostname: String by option(help = "The host of your server")
         .prompt("Hostname")
     override fun run() {
         val addr = Inet4Address.getAllByName(hostname)
@@ -18,6 +18,5 @@ class VormsAuth : CliktCommand() {
         UdpServer(port, pubsub).run()
         val client = UDPClient(hostname, port, pubsub)
         client.send("pooba")
-
     }
 }

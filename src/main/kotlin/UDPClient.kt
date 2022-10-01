@@ -20,5 +20,4 @@ class UDPClient(val host: String, val port : Int, publisher: Listener) : Corouti
     override fun recieve(packet: DatagramPacket) {
 
     }
-
 }
