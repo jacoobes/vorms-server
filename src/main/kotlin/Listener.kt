@@ -1,12 +1,12 @@
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import java.net.DatagramPacket
 
 class Listener {
-    private val _events = MutableSharedFlow<DatagramPacket>() // private mutable shared flow
-    val events = _events.asSharedFlow() // publicly exposed as read-only shared flow
+    // public shared flow
+    var events: MutableSharedFlow<DatagramPacket> = MutableSharedFlow<DatagramPacket>()
+        private set // making it read-only
 
     suspend fun produceEvent(event: DatagramPacket) {
-        _events.emit(event) // suspends until all subscribers receive it
+        events.emit(event) // suspends until all subscribers receive it
     }
 }
