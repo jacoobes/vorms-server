@@ -27,7 +27,7 @@ class UdpServer(
         val buffer = ByteArray(2048)
         thread {
             while(running) {
-                val packet = DatagramPacket(buffer,buffer.size)
+                val packet = DatagramPacket(buffer, buffer.size)
                 recieve(packet)
             }
         }
