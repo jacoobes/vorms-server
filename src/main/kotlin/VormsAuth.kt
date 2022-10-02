@@ -13,10 +13,9 @@ class VormsAuth : CliktCommand() {
     override fun run() {
         val addr = Inet4Address.getAllByName(hostname)
         println("Now on " + addr[0])
-        val pubsub = Listener()
         val port = 8080
-        UdpServer(port, pubsub).run()
-        val client = UDPClient(hostname, port, pubsub)
+        UdpServer(port).run()
+        val client = UDPClient(hostname, port)
         client.send("pooba")
 
     }

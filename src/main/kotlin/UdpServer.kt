@@ -7,7 +7,6 @@ import kotlin.coroutines.CoroutineContext
 
 class UdpServer(
     port: Int = 8080,
-    private val publisher: Listener,
 ) : CoroutineScope, Subscriber<String>, java.lang.Runnable {
     override val coroutineContext: CoroutineContext = Job() + Dispatchers.IO
     private val datagramSocket = DatagramSocket(port)
