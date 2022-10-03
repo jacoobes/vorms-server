@@ -1,5 +1,4 @@
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
 import java.net.DatagramPacket
 import java.net.DatagramSocket
 import kotlin.concurrent.thread
@@ -18,7 +17,7 @@ class UdpServer(
         }
     }
 
-    override fun recieve(packet: DatagramPacket) {
+    override fun receive(packet: DatagramPacket) {
         datagramSocket.receive(packet)
         println(String(packet.data, 0, packet.length))
     }
@@ -28,7 +27,7 @@ class UdpServer(
         thread {
             while(running) {
                 val packet = DatagramPacket(buffer,buffer.size)
-                recieve(packet)
+                receive(packet)
             }
         }
     }

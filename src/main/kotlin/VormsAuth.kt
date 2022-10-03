@@ -10,6 +10,7 @@ class VormsAuth : CliktCommand() {
         .prompt(hideInput = true)
     val hostname: String by option(help = "The host of your server")
         .prompt("Hostname")
+
     override fun run() {
         val addr = Inet4Address.getAllByName(hostname)
         println("Now on " + addr[0])
