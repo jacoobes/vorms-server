@@ -6,7 +6,6 @@ import kotlin.coroutines.CoroutineContext
 
 class UdpServer(
     port: Int = 8080,
-    private val publisher: Listener,
 ) : CoroutineScope, Subscriber<String>, java.lang.Runnable {
     override val coroutineContext: CoroutineContext = Job() + Dispatchers.IO
     private val datagramSocket = DatagramSocket(port)
@@ -18,7 +17,7 @@ class UdpServer(
         }
     }
 
-    override fun recieve(packet: DatagramPacket) {
+    override fun receive(packet: DatagramPacket) {
         datagramSocket.receive(packet)
         println(String(packet.data, 0, packet.length))
     }
@@ -27,8 +26,8 @@ class UdpServer(
         val buffer = ByteArray(2048)
         thread {
             while(running) {
-                val packet = DatagramPacket(buffer, buffer.size)
-                recieve(packet)
+                val packet = DatagramPacket(buffer,buffer.size)
+                receive(packet)
             }
         }
     }

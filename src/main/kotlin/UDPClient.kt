@@ -6,7 +6,7 @@ import java.net.DatagramSocket
 import java.net.InetAddress
 import kotlin.coroutines.CoroutineContext
 
-class UDPClient(val host: String, val port : Int, publisher: Listener) : CoroutineScope, Subscriber<String> {
+class UDPClient(val host: String, val port : Int) : CoroutineScope, Subscriber<String> {
     override val coroutineContext: CoroutineContext = Job() + Dispatchers.IO
     private val datagramSocket = DatagramSocket()
     private val addr = InetAddress.getByName(host)
@@ -17,7 +17,7 @@ class UDPClient(val host: String, val port : Int, publisher: Listener) : Corouti
         datagramSocket.send(packet)
     }
 
-    override fun recieve(packet: DatagramPacket) {
+    override fun receive(packet: DatagramPacket) {
 
     }
 }
